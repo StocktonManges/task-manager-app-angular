@@ -1,8 +1,6 @@
 <div>
   <button (click)="onSelectUser()">
-    <!-- when a value is derived using signal or computed, the desired
-   property must be accessed as a function. -->
-    <img [src]="imagePath()" [alt]="selectedUser().name" />
-    <span>{{ selectedUser().name }}</span>
+    <img [src]="imagePath" [alt]="name" />
+    <span>{{ name }}</span>
   </button>
 </div>

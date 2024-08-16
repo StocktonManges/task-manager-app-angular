@@ -1,7 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -11,18 +8,24 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  // Set an initial value for the signal function.
-  selectedUser = signal(DUMMY_USERS[randomIndex]);
-  // Computed values when using signals.
-  imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
+  // @Input() makes the avatar property of UserComponent accessible. The
+  // exclamation point tells typescript that this property doesn't need
+  // an initial value. {required: true} tells Angular that this property
+  // must receive a value.
+  @Input({ required: true }) id!: string;
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
 
-  // get imagePath() {
-  //   return 'assets/users/' + this.selectedUser.avatar;
-  // }
+  // EventEmitters send data up the chain to its parents. This property
+  // with the Output decorator becomes an event type that can be
+  // listened to just like any other event listener.
+  @Output() select = new EventEmitter();
+
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
+  }
 
   onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser.set(DUMMY_USERS[randomIndex]); // Setting a new value using signal.
-    // this.selectedUser = DUMMY_USERS[randomIndex];
+    this.select.emit(this.id);
   }
 }
