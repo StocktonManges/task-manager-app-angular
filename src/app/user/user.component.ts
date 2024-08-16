@@ -18,13 +18,17 @@ export class UserComponent {
 
   // EventEmitters send data up the chain to its parents. This property
   // with the Output decorator becomes an event type that can be
-  // listened to just like any other event listener.
+  // listened to just like any other event (e.g. click). The
+  // component will listen for when 'select' emits something.
   @Output() select = new EventEmitter();
 
   get imagePath() {
     return 'assets/users/' + this.avatar;
   }
 
+  // When this function is triggered, it also triggers the select event
+  // and emits the id that is passed as an argument for the id property
+  // of this component.
   onSelectUser() {
     this.select.emit(this.id);
   }
