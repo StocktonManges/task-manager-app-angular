@@ -3,6 +3,7 @@
   <ul id="users">
     <!-- 'users' comes from the 'users' property on the app component's
     class that was initialized to be the DUMMY_USERS array. -->
+
     <!-- $event is a special variable created by Angular for accessing
     data that has been emitted by events. In this case, it is accessing
     the id that is emitted from the custom event 'select' that was
@@ -40,4 +41,6 @@
       />
     </li>
   </ul>
+
+  <app-tasks [name]="selectedUser?.name" />
 </main>

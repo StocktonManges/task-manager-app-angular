@@ -20,7 +20,7 @@ export class UserComponent {
   // with the Output decorator becomes an event type that can be
   // listened to just like any other event (e.g. click). The
   // component will listen for when 'select' emits something.
-  @Output() select = new EventEmitter();
+  @Output() select = new EventEmitter<string>();
 
   get imagePath() {
     return 'assets/users/' + this.avatar;
