@@ -4,43 +4,26 @@
     <!-- 'users' comes from the 'users' property on the app component's
     class that was initialized to be the DUMMY_USERS array. -->
 
-    <!-- $event is a special variable created by Angular for accessing
-    data that has been emitted by events. In this case, it is accessing
-    the id that is emitted from the custom event 'select' that was
-    created in the user component. -->
+    <!-- 'track user.id' is what Angular uses in place of the 'key'
+    property that React uses to differentiate between html elements. -->
+    @for (user of users; track user.id) {
     <li>
+      <!-- $event is a special variable created by Angular for accessing
+      data that has been emitted by events. In this case, it is accessing
+      the id that is emitted from the custom event 'select' that was
+      created in the user component. -->
       <app-user
-        [id]="users[0].id"
-        [avatar]="users[0].avatar"
-        [name]="users[0].name"
+        [selected]="user.id === selectedUserId"
+        [user]="user"
         (select)="onSelectUser($event)"
       />
     </li>
-    <li>
-      <app-user
-        [id]="users[1].id"
-        [avatar]="users[1].avatar"
-        [name]="users[1].name"
-        (select)="onSelectUser($event)"
-      />
-    </li>
-    <li>
-      <app-user
-        [id]="users[2].id"
-        [avatar]="users[2].avatar"
-        [name]="users[2].name"
-        (select)="onSelectUser($event)"
-      />
-    </li>
-    <li>
-      <app-user
-        [id]="users[3].id"
-        [avatar]="users[3].avatar"
-        [name]="users[3].name"
-        (select)="onSelectUser($event)"
-      />
-    </li>
+    }
   </ul>
 
-  <app-tasks [name]="selectedUser?.name" />
+  @if (selectedUser) {
+  <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name" />
+  } @else {
+  <p id="fallback">Select a user to see their tasks!</p>
+  }
 </main>

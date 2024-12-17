@@ -4,12 +4,6 @@ import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './dummy-users';
 import { TasksComponent } from './tasks/tasks.component';
 
-type User = {
-  id: string;
-  name: string;
-  avatar: string;
-};
-
 @Component({
   // When compiled, the 'app-root' tag is found in index.html and
   // replaced with the app.component.html file.
@@ -23,7 +17,7 @@ export class AppComponent {
   // This makes DUMMY_USERS accessible in the html template and can then
   // be passed as arguments for properties on other components.
   users = DUMMY_USERS;
-  selectedUserId = 'u1';
+  selectedUserId?: string;
 
   get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId);
